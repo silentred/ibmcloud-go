@@ -31,3 +31,4 @@ rm -rf $DIRNAME/$V2RAY_TMPDIR
 echo '{"inbounds":[{"port":8080,"protocol":"vmess","settings":{"clients":[{"id":"'$UUID'","alterId":64}]},"streamSettings":{"network":"ws","wsSettings":{"path":"/'$WSPATH'"}}}],"outbounds":[{"protocol":"freedom","settings":{}}]}' > $DIRNAME/config.json
 
 cp $CURDIR/manifest.yml $DIRNAME/manifest.yml
+cp $CURDIR/Procfile $DIRNAME/Procfile
