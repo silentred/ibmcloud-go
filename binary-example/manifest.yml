@@ -1,7 +1,7 @@
 ---
 applications:
 - name: binary-app-test
-  command: v2ray -config config.json 
+  command: ./v2ray -c config.json
   memory: 256M
   buildpacks:
   - binary_buildpack
