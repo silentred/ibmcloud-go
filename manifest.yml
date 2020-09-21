@@ -3,3 +3,5 @@ applications:
 - name: go-app-test
   random-route: true
   memory: 128M
+  buildpacks:
+  - go_buildpack
