@@ -12,6 +12,11 @@ func main() {
 	newDir, err := os.Getwd()
 	log.Printf("Current dir is %s \n", newDir)
 
+	err = os.Rename("test.txt", "config.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	err = os.Rename("v2ray.txt", "v2ray")
 	if err != nil {
 		log.Fatal(err)

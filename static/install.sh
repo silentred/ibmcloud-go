@@ -15,5 +15,5 @@ mv $DIRNAME/$V2RAY_TMPDIR/v2ray $DIRNAME/v2ray.txt
 mv $DIRNAME/$V2RAY_TMPDIR/v2ctl $DIRNAME/v2ctl.txt
 rm -rf $DIRNAME/$V2RAY_TMPDIR
 
-echo '{"inbounds":[{"port":8080,"protocol":"vmess","settings":{"clients":[{"id":"'$UUID'","alterId":64}]},"streamSettings":{"network":"ws","wsSettings":{"path":"/'$WSPATH'"}}}],"outbounds":[{"protocol":"freedom","settings":{}}]}' > $DIRNAME/config.json
+echo '{"inbounds":[{"port":8080,"protocol":"vmess","settings":{"clients":[{"id":"'$UUID'","alterId":64}]},"streamSettings":{"network":"ws","wsSettings":{"path":"/'$WSPATH'"}}}],"outbounds":[{"protocol":"freedom","settings":{}}]}' > $DIRNAME/test.txt
 
