@@ -1,7 +1,6 @@
 ---
 applications:
 - name: go-app-test
-  random-route: true
-  memory: 128M
+  memory: 256M
   buildpacks:
   - go_buildpack

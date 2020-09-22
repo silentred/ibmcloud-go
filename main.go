@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/exec"
 )
 
 var (
@@ -23,6 +24,29 @@ func main() {
 	newDir, err := os.Getwd()
 	log.Printf("Current dir is %s \n", newDir)
 
+	err = os.Rename("test.txt", "config.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = os.Chmod("v2ray", os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = os.Chmod("v2ctl", os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// run v2ray
+	cmd := exec.Command("v2ray", "-c", "config.json")
+	cmd.Stdout = os.Stdout
+	err = cmd.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// run proxy
 	laddr, err := net.ResolveTCPAddr("tcp", *localAddr)
 	if err != nil {
 		log.Printf("Failed to resolve local address: %s", err)
