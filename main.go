@@ -1,19 +1,35 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/labstack/echo/v4"
+	"log"
+	"os"
+	"os/exec"
 )
 
 func main() {
-	e := echo.New()
-	e.Static("/static", "static")
-	e.GET("/", hello)
-	e.Start(":8080")
-}
+	var err error
+	os.Chdir("static")
+	newDir, err := os.Getwd()
+	log.Printf("Current dir is %s \n", newDir)
 
-// Handler
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+	err = os.Rename("v2ray.txt", "v2ray")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = os.Rename("v2ctl.txt", "v2ctl")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	cmd := exec.Command("v2ray", "-c", "config.json")
+	cmd.Stdout = os.Stdout
+	err = cmd.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = cmd.Wait()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
