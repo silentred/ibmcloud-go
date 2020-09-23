@@ -14,7 +14,7 @@ import (
 
 var (
 	connid            = uint64(0)
-	configFileContent = "CONFIG_CONTENT"
+	configFileContent = `CONFIG_CONTENT`
 
 	localAddr  = flag.String("l", ":8080", "local address")
 	remoteAddr = flag.String("r", "localhost:9090", "remote address")
