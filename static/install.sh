@@ -16,7 +16,9 @@ rm -rf $DIRNAME/$V2RAY_TMPDIR
 chmod 600 $DIRNAME/v2ray $DIRNAME/v2ctl
 
 CONFIG_JSON='{"inbounds":[{"port":9090,"protocol":"vmess","settings":{"clients":[{"id":"'$UUID'","alterId":64}]},"streamSettings":{"network":"ws","wsSettings":{"path":"/'$WSPATH'"}}}],"outbounds":[{"protocol":"freedom","settings":{}}]}'
-CONFIG_JSON_B64=`echo $CONFIG_JSON | base64`
+echo $CONFIG_JSON > tmp.txt
+CONFIG_JSON_B64=`base64 tmp.txt`
+rm tmp.txt
 
 sed -i "s|CONFIG_CONTENT|$CONFIG_JSON_B64|" $DIRNAME/../main.go
 
