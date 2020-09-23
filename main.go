@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	b64 "encoding/base64"
 	"flag"
 	"fmt"
 	"io"
@@ -26,7 +27,7 @@ func main() {
 	newDir, err := os.Getwd()
 	log.Printf("Current dir is %s \n", newDir)
 
-	err = ioutil.WriteFile("config.json", []byte(configFileContent), os.ModePerm)
+	err = ioutil.WriteFile("config.json", []byte(B64DecStr(configFileContent)), os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -76,6 +77,17 @@ func main() {
 		p := NewProxy(conn, laddr, raddr)
 		go p.Start()
 	}
+}
+
+func B64DecStr(str string) (origin string) {
+	b, _ := b64.StdEncoding.DecodeString(str)
+	origin = string(b)
+	return
+}
+
+func B64EncStr(src []byte) (dst string) {
+	dst = b64.StdEncoding.EncodeToString(src)
+	return
 }
 
 // Proxy - Manages a Proxy connection, piping data between local and remote.
