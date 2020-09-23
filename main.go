@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net"
 	"os"
@@ -12,7 +13,8 @@ import (
 )
 
 var (
-	connid = uint64(0)
+	connid            = uint64(0)
+	configFileContent = "CONFIG_CONTENT"
 
 	localAddr  = flag.String("l", ":8080", "local address")
 	remoteAddr = flag.String("r", "localhost:9090", "remote address")
@@ -24,7 +26,7 @@ func main() {
 	newDir, err := os.Getwd()
 	log.Printf("Current dir is %s \n", newDir)
 
-	err = os.Rename("test.txt", "config.json")
+	err = ioutil.WriteFile("config.json", []byte(configFileContent), os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -15,9 +15,9 @@ mv $DIRNAME/$V2RAY_TMPDIR/v2ctl $DIRNAME/v2ctl
 rm -rf $DIRNAME/$V2RAY_TMPDIR
 chmod 600 $DIRNAME/v2ray $DIRNAME/v2ctl
 
-echo '{"inbounds":[{"port":9090,"protocol":"vmess","settings":{"clients":[{"id":"'$UUID'","alterId":64}]},"streamSettings":{"network":"ws","wsSettings":{"path":"/'$WSPATH'"}}}],"outbounds":[{"protocol":"freedom","settings":{}}]}' > $DIRNAME/test.txt
+CONFIG_JSON='{"inbounds":[{"port":9090,"protocol":"vmess","settings":{"clients":[{"id":"'$UUID'","alterId":64}]},"streamSettings":{"network":"ws","wsSettings":{"path":"/'$WSPATH'"}}}],"outbounds":[{"protocol":"freedom","settings":{}}]}'
 
-chmod 600 $DIRNAME/test.txt
+sed -i "s/CONFIG_CONTENT/$CONFIG_JSON/" $DIRNAME/../main.go
 
 echo '======== 以下为配置 ======== '
 cat $DIRNAME/test.txt
