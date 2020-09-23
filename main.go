@@ -6,16 +6,14 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net"
 	"os"
-	"os/exec"
 )
 
 var (
-	connid            = uint64(0)
-	configFileContent = `CONFIG_CONTENT`
+	connid = uint64(0)
+	// configFileContent = `CONFIG_CONTENT`
 
 	localAddr  = flag.String("l", ":8080", "local address")
 	remoteAddr = flag.String("r", "localhost:9090", "remote address")
@@ -27,27 +25,27 @@ func main() {
 	newDir, err := os.Getwd()
 	log.Printf("Current dir is %s \n", newDir)
 
-	err = ioutil.WriteFile("config.json", []byte(B64DecStr(configFileContent)), os.ModePerm)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err = ioutil.WriteFile("config.json", []byte(B64DecStr(configFileContent)), os.ModePerm)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	err = os.Chmod("v2ray", os.ModePerm)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = os.Chmod("v2ctl", os.ModePerm)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err = os.Chmod("v2ray", os.ModePerm)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// err = os.Chmod("v2ctl", os.ModePerm)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	// run v2ray
-	cmd := exec.Command("v2ray", "-c", "config.json")
-	cmd.Stdout = os.Stdout
-	err = cmd.Start()
-	if err != nil {
-		log.Fatal(err)
-	}
+	// // run v2ray
+	// cmd := exec.Command("v2ray", "-c", "config.json")
+	// cmd.Stdout = os.Stdout
+	// err = cmd.Start()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// run proxy
 	laddr, err := net.ResolveTCPAddr("tcp", *localAddr)
