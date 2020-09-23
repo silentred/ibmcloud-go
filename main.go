@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	b64 "encoding/base64"
 	"flag"
 	"fmt"
 	"io"
@@ -13,7 +12,6 @@ import (
 
 var (
 	connid = uint64(0)
-	// configFileContent = `CONFIG_CONTENT`
 
 	localAddr  = flag.String("l", ":8080", "local address")
 	remoteAddr = flag.String("r", "localhost:9090", "remote address")
@@ -24,28 +22,6 @@ func main() {
 	os.Chdir("static")
 	newDir, err := os.Getwd()
 	log.Printf("Current dir is %s \n", newDir)
-
-	// err = ioutil.WriteFile("config.json", []byte(B64DecStr(configFileContent)), os.ModePerm)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// err = os.Chmod("v2ray", os.ModePerm)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// err = os.Chmod("v2ctl", os.ModePerm)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// // run v2ray
-	// cmd := exec.Command("v2ray", "-c", "config.json")
-	// cmd.Stdout = os.Stdout
-	// err = cmd.Start()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
 
 	// run proxy
 	laddr, err := net.ResolveTCPAddr("tcp", *localAddr)
@@ -75,17 +51,6 @@ func main() {
 		p := NewProxy(conn, laddr, raddr)
 		go p.Start()
 	}
-}
-
-func B64DecStr(str string) (origin string) {
-	b, _ := b64.StdEncoding.DecodeString(str)
-	origin = string(b)
-	return
-}
-
-func B64EncStr(src []byte) (dst string) {
-	dst = b64.StdEncoding.EncodeToString(src)
-	return
 }
 
 // Proxy - Manages a Proxy connection, piping data between local and remote.
